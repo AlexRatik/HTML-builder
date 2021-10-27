@@ -9,11 +9,12 @@ const rl = readline.createInterface({
 const out = fs.createWriteStream(path.join(__dirname, "text.txt"));
 
 rl.question("Input text for file, please\n", function (text) {
+    out.write(text + "\n");
     rl.on("line", (data) => {
         if (data.trim() === "exit") {
             rl.close();
         } else {
-            out.write(text);
+            out.write(data + "\n");
         }
     });
 });
