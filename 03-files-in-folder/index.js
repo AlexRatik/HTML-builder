@@ -20,9 +20,9 @@ async function rrr(file_path) {
                         ).toFixed(2)} kb`
                     );
                 });
-            } else {
+            } /* else {
                 rrr(src);
-            }
+            }*/
         }
     } catch (err) {
         console.log(err);
