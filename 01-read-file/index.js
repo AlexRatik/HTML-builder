@@ -1,10 +1,12 @@
 const fs = require("fs");
 const path = require("path");
+const { stdout } = require("process");
 
 const stream = fs.createReadStream(path.join(__dirname, "text.txt"), "utf-8");
 
 stream.on("data", (dat) => {
-    console.log(dat);
+    // console.log(dat);
+    stdout.write(dat, "utf-8");
 });
 
 stream.on("error", (error) => {
