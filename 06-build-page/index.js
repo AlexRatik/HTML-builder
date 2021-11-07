@@ -8,7 +8,6 @@ const assets_to = path.join(__dirname, "project-dist", "assets");
 async function bundleHTML() {
     try {
         const path_for_project_BUNDLE = path.join(__dirname, "project-dist");
-        // await fs.access(path_for_project_BUNDLE, async () => {
         await fsPromises.rmdir(path_for_project_BUNDLE, {
             recursive: true,
         });
