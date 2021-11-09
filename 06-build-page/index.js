@@ -5,13 +5,27 @@ const { stdout } = require("process");
 const assets_from = path.join(__dirname, "assets");
 const assets_to = path.join(__dirname, "project-dist", "assets");
 
+async function readAndDelete(way) {
+    const files = await fsPromises.readdir(way, {
+        withFileTypes: true,
+        encoding: "utf-8",
+    });
+    for (const file of files) {
+        if (file.isFile()) {
+            await fsPromises.unlink(path.join(way, file.name));
+        } else {
+            readAndDelete(path.join(way, file.name));
+        }
+    }
+}
+
 async function bundleHTML() {
     try {
         const path_for_project_BUNDLE = path.join(__dirname, "project-dist");
-        await fsPromises.rmdir(path_for_project_BUNDLE, {
-            recursive: true,
-        });
-
+        try {
+            await fsPromises.access(path_for_project_BUNDLE);
+            await readAndDelete(path_for_project_BUNDLE);
+        } catch (err) {}
         await fsPromises.mkdir(path_for_project_BUNDLE, { recursive: true });
 
         const path_for_html_BUNDLE = path.join(
